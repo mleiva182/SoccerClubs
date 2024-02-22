@@ -1,3 +1,37 @@
 <resources>
     <string name="app_name">SoccerClubs</string>
+
+    <string name="dialog_delete_title">¿Delete Club?</string>
+    <string name="dialog_delete_confirm">Delete</string>
+    <string name="dialog_delete_cancel">Cancel</string>
+
+    <string name="dialog_exit_title">¿Go out this screen?</string>
+    <string name="dialog_exit_message">If you have not saved changes, they will be lost.</string>
+    <string name="dialog_exit_ok">Go out</string>
+
+    <string name="dialog_options_title">¿What would you like to do?</string>
+
+    <string name="description_img_photo">Imagen del club</string>
+    <string name="description_soccer_club_add">Crear club</string>
+
+    <string name="edit_soccer_club_title_edit">Edit Club</string>
+    <string name="edit_soccer_club_message_update_success">Updated club</string>
+    <string name="edit_soccer_club_message_valid">Review the required fields.</string>
+    <string name="edit_soccer_club_message_save_success">Club added successfully.</string>
+    <string name="edit_soccer_club_title_add">Create Soccer Club</string>
+
+    <string name="hint_name">club\'s name</string>
+    <string name="hint_phone">phone</string>
+    <string name="hint_website">website url</string>
+    <string name="hint_photo_url">image url</string>
+
+    <string name="helper_required">Required</string>
+
+    <string name="menu_save">Save</string>
+
+    <string name="main_error_no_website">This club does not have a website.</string>
+    <string name="main_error_no_resolve">No compatible app found</string>
+
+    <string name="options_item_call">To call</string>
+    <string name="options_item_website">Go to website</string>
 </resources>
