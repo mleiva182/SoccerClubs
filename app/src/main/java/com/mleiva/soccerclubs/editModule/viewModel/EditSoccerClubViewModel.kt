@@ -3,24 +3,34 @@ package com.mleiva.soccerclubs.editModule.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mleiva.soccerclubs.common.entities.SoccerClubEntity
-import com.mleiva.soccerclubs.editModule.model.EditSoccerClubInteractor
+import androidx.lifecycle.ViewModelProvider
+import com.mleiva.soccerclubs.data.entities.SoccerClubEntity
+import com.mleiva.soccerclubs.data.repository.SoccerClubsRepository
 
 /***
  * Project: SoccerClubs
  * From: com.mleiva.soccerclubs.editModule.viewModel
  * Creted by: Marcelo Leiva on 21-02-2024 at 20:02
  ***/
-class EditSoccerClubViewModel: ViewModel() {
+class EditSoccerClubViewModel(
+    private val repository: SoccerClubsRepository
+): ViewModel() {
 
     private val soccerClubSelected = MutableLiveData<SoccerClubEntity>()
     private val showFab = MutableLiveData<Boolean>()
     private val result = MutableLiveData<Any>()
 
-    private val interactor: EditSoccerClubInteractor
-
+    class EditViewModelFactory(private val repository: SoccerClubsRepository) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(EditSoccerClubViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return EditSoccerClubViewModel(repository) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
+    }
     init {
-        interactor = EditSoccerClubInteractor()
+
     }
 
     fun setSoccerClubSelected(soccerClubEntity: SoccerClubEntity){
@@ -48,13 +58,13 @@ class EditSoccerClubViewModel: ViewModel() {
     }
 
     fun saveSoccerClub(soccerClubEntity: SoccerClubEntity){
-        interactor.saveSoccerClub(soccerClubEntity) { newId ->
+        repository.saveSoccerClub(soccerClubEntity) { newId ->
             result.value = newId
         }
     }
 
     fun updateSoccerClub(soccerClubEntity: SoccerClubEntity){
-        interactor.updateSoccerClub(soccerClubEntity) { soccerClubUpdate ->
+        repository.updateSoccerClub(soccerClubEntity) { soccerClubUpdate ->
             result.value = soccerClubUpdate
         }
     }

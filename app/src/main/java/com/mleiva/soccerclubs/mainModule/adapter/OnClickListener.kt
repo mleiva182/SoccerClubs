@@ -1,6 +1,6 @@
 package com.mleiva.soccerclubs.mainModule.adapter
 
-import com.mleiva.soccerclubs.common.entities.SoccerClubEntity
+import com.mleiva.soccerclubs.data.entities.SoccerClubEntity
 
 /***
  * Project: SoccerClubs

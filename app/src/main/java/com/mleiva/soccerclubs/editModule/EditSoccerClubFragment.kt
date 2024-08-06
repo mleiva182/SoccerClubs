@@ -1,8 +1,6 @@
 package com.mleiva.soccerclubs.editModule
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.view.LayoutInflater
@@ -23,7 +21,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.mleiva.soccerclubs.R
-import com.mleiva.soccerclubs.common.entities.SoccerClubEntity
+import com.mleiva.soccerclubs.data.entities.SoccerClubEntity
+import com.mleiva.soccerclubs.data.repository.SoccerClubsRepository
 import com.mleiva.soccerclubs.databinding.FragmentEditSoccerClubBinding
 import com.mleiva.soccerclubs.editModule.viewModel.EditSoccerClubViewModel
 import com.mleiva.soccerclubs.mainModule.MainActivity
@@ -45,7 +44,12 @@ class EditSoccerClubFragment : Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mEditSoccerClubViewModel = ViewModelProvider(requireActivity()).get(EditSoccerClubViewModel::class.java)
+        val repository = SoccerClubsRepository()
+        val viewModelFactory = EditSoccerClubViewModel.EditViewModelFactory(repository)
+        //mEditSoccerClubViewModel = ViewModelProvider(requireActivity()).get(EditSoccerClubViewModel::class.java)
+        mEditSoccerClubViewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(EditSoccerClubViewModel::class.java)
+
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

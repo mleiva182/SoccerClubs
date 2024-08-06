@@ -1,4 +1,4 @@
-package com.mleiva.soccerclubs.common.entities
+package com.mleiva.soccerclubs.data.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

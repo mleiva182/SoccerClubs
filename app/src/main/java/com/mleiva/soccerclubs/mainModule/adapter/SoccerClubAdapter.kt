@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.mleiva.soccerclubs.R
-import com.mleiva.soccerclubs.common.entities.SoccerClubEntity
+import com.mleiva.soccerclubs.data.entities.SoccerClubEntity
 import com.mleiva.soccerclubs.databinding.ItemClubBinding
 
 /***

@@ -1,4 +1,4 @@
-package com.mleiva.soccerclubs.common.database
+package com.mleiva.soccerclubs.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -6,7 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.mleiva.soccerclubs.common.entities.SoccerClubEntity
+import com.mleiva.soccerclubs.data.entities.SoccerClubEntity
 
 /***
  * Project: SoccerClubs

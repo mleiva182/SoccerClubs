@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.mleiva.soccerclubs.common.database.SoccerClubDatabase
+import com.mleiva.soccerclubs.data.database.SoccerClubDatabase
 
 /***
  * Project: SoccerClubs

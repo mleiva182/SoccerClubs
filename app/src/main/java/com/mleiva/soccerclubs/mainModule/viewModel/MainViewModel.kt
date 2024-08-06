@@ -3,22 +3,33 @@ package com.mleiva.soccerclubs.mainModule.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mleiva.soccerclubs.common.entities.SoccerClubEntity
-import com.mleiva.soccerclubs.mainModule.model.MainInteractor
+import androidx.lifecycle.ViewModelProvider
+import com.mleiva.soccerclubs.data.entities.SoccerClubEntity
+import com.mleiva.soccerclubs.data.repository.SoccerClubsRepository
 
 /***
  * Project: SoccerClubs
  * From: com.mleiva.soccerclubs.mainModule.viewModel
  * Creted by: Marcelo Leiva on 21-02-2024 at 10:18
  ***/
-class MainViewModel: ViewModel() {
+class MainViewModel(
+    private val repository: SoccerClubsRepository
+): ViewModel() {
+
+    class MainViewModelFactory(private val repository: SoccerClubsRepository) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return MainViewModel(repository) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
+    }
 
     private var clubsList: MutableList<SoccerClubEntity>
-    private var interactor: MainInteractor
 
     init {
         clubsList = mutableListOf()
-        interactor = MainInteractor()
     }
 
     private val clubs: MutableLiveData<List<SoccerClubEntity>> by lazy {
@@ -30,7 +41,7 @@ class MainViewModel: ViewModel() {
     /**
      * Agregado para cargar y refrescar datos cuando hay cambios
      */
-    private val soccerClubs = interactor.soccerClubs
+    private val soccerClubs = repository.soccerClubs
     fun getSoccerClubs(): LiveData<MutableList<SoccerClubEntity>>{
         return soccerClubs//.also {
             //    loadClubs()
@@ -43,14 +54,14 @@ class MainViewModel: ViewModel() {
     }
 
     private fun loadClubs(){
-        interactor.getClubs {
+        repository.getClubs {
             clubs.value = it
             clubsList = it
         }
     }
 
     fun deleteClub(soccerClubEntity: SoccerClubEntity){
-        interactor.deleteClub(soccerClubEntity) {
+        repository.deleteClub(soccerClubEntity) {
             val index = clubsList.indexOf(soccerClubEntity)
             if (index != -1) {
                 clubsList.removeAt(index)
@@ -63,7 +74,7 @@ class MainViewModel: ViewModel() {
 
         soccerClubEntity.isFavorite = !soccerClubEntity.isFavorite
 
-        interactor.updateClub(soccerClubEntity) {
+        repository.updateClub(soccerClubEntity) {
             val index = clubsList.indexOf(soccerClubEntity)
             if (index != -1) {
                 clubsList.set(index, soccerClubEntity)

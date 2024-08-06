@@ -1,6 +1,5 @@
 package com.mleiva.soccerclubs.mainModule
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -11,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mleiva.soccerclubs.R
-import com.mleiva.soccerclubs.SoccerClubApplication
-import com.mleiva.soccerclubs.common.entities.SoccerClubEntity
+import com.mleiva.soccerclubs.data.entities.SoccerClubEntity
+import com.mleiva.soccerclubs.data.repository.SoccerClubsRepository
 import com.mleiva.soccerclubs.databinding.ActivityMainBinding
 import com.mleiva.soccerclubs.editModule.EditSoccerClubFragment
 import com.mleiva.soccerclubs.editModule.viewModel.EditSoccerClubViewModel
@@ -65,12 +64,15 @@ class MainActivity : AppCompatActivity(), OnClickListener{
 
 
     private fun setupViewModel() {
-        mMainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        val repository = SoccerClubsRepository()
+        val mainViewModelFactory = MainViewModel.MainViewModelFactory(repository)
+        mMainViewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
         mMainViewModel.getSoccerClubs().observe(this) { clubs ->
             mAdapter.setClubs(clubs)
         }
 
-        mEditSoccerClubViewModel = ViewModelProvider(this).get(EditSoccerClubViewModel::class.java)
+        val editViewModelFactory = EditSoccerClubViewModel.EditViewModelFactory(repository)
+        mEditSoccerClubViewModel = ViewModelProvider(this, editViewModelFactory).get(EditSoccerClubViewModel::class.java)
         mEditSoccerClubViewModel.getShowFab().observe(this, {isVisible ->
             if (isVisible) mBinding.fab.show() else mBinding.fab.hide()
         })

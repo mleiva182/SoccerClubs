@@ -1,8 +1,8 @@
-package com.mleiva.soccerclubs.common.database
+package com.mleiva.soccerclubs.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.mleiva.soccerclubs.common.entities.SoccerClubEntity
+import com.mleiva.soccerclubs.data.entities.SoccerClubEntity
 
 /***
  * Project: SoccerClubs
